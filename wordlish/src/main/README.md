@@ -61,6 +61,12 @@ We loop through each entry of `guessArray` using the loop variable `i`. Nested i
 Since we want to change the color for the letters A, P, and E, we'll record that as follows. I chose red because it contrasted well on my monitor. Feel free to select your own colors.
 
 ```
+// reset colorCode
+for (int i = 0; i < 5; i++) {
+    colorCode[i] = RESET + " ";
+}
+
+// for each i, if guess matches any of chosen, set color to red
 for (int i = 0; i < 5; i++) {
     for (int j = 0; j < 5; j++) {
         if (guessArray[i] == chosenArray[j]) {
@@ -75,6 +81,7 @@ Notice that we recorded `colorCode[i]` to match `guessArray[i]`, since we'll be 
 Now we'll go back through, comparing to see if the letters of the guess were in the right position. This means a single loop rather than a nested loop.
 
 ```
+// for each i, if guess matches chosen, set color to green
 for (int i = 0; i < 5; i++) {
     if (guessArray[i] == chosenArray[i]) {
         colorCode[i] = GREEN + " ";
@@ -82,7 +89,7 @@ for (int i = 0; i < 5; i++) {
 }    
 ```
 
-We did this check *after* the check whether the letter was in the word at all in case the guessed word, as letters that appear may not all appear at the right position, but some might. 
+We did this *after* the check whether the letter was in the word at all in case the guessed word, as letters that appear may not all appear at the right position, but some might. 
 
 ## Building the Word to Be Printed
 
@@ -148,6 +155,9 @@ We could literally repeat all this code 5 more times, but that wouldn't be very 
 
 ```
 for (int k = 0; k < 6; k++) {
+    // reset printWord
+    printWord = :";
+
     // establish word to compare
         <LOTS OF CODE>
     System.out.println(printWord);
