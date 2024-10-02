@@ -29,7 +29,7 @@ Notice that we create an array of the characters. This saves us the cumbersome t
 Since we may need to make each of the letter displays a different color, we create an array of the same length. Because the color codes were strings instead of characters, we'll make these color codes strings as well. Since we're doing that anyhow, let's add a blank space to each. This will let us space out the characters in the final product. Insert code like the following.
 
 ```
-String[] colorCodes = {RESET+" ", RESET+" ", RESET+" ", RESET+" ", RESET+" "};
+String[] colorCode = {RESET+" ", RESET+" ", RESET+" ", RESET+" ", RESET+" "};
 ```
 
 The code for `RESET` should turn off whatever other color may have been set before. We could also have chosen a color we wanted all display that wasn't changed in, like gray or white. Next we need to change the colors according to the rules decided.
@@ -61,8 +61,12 @@ We loop through each entry of `guessArray` using the loop variable `i`. Nested i
 Since we want to change the color for the letters A, P, and E, we'll record that as follows. I chose red because it contrasted well on my monitor. Feel free to select your own colors.
 
 ```
-if (guessArray[i] == chosenArray[j]) {
-    colorCode[i] = RED;
+for (int i = 0; i < 5; i++) {
+    for (int j = 0; j < 5; j++) {
+        if (guessArray[i] == chosenArray[j]) {
+            colorCode[i] = RED + " ";
+        }
+    }
 }
 ```
 
@@ -73,7 +77,7 @@ Now we'll go back through, comparing to see if the letters of the guess were in 
 ```
 for (int i = 0; i < 5; i++) {
     if (guessArray[i] == chosenArray[i]) {
-        colorCode[i] = GREEN;
+        colorCode[i] = GREEN + " ";
     }
 }    
 ```
@@ -85,12 +89,12 @@ We did this check *after* the check whether the letter was in the word at all in
 In order to print with these colors, we build a string that alternates `colorCode` followed by `guessArray`.
 
 ```
-// build a word to be printed with colors from colorCodes
+// build a word to be printed with colors from colorCode
 String printWord = new String();
 
 // loop builds string alternate code & letters
 for (int i = 0; i < 5; i++) {
-    printWord += colorCodes[i] + guessArray[i];
+    printWord += colorCode[i] + guessArray[i];
 }
 
 // reset at end of word
@@ -112,11 +116,14 @@ On the route to making this program into an actual game, we need to accept user 
 Create a `Scanner` object and prompt the user to input a five-letter word. People being people, they'll mess that up. If the length of `guessArray` and `choiceArray` are different, our program will either encounter a syntax error or do something unexpected.
 
 ```
-// establish word to compare
+// put this at the start!
 Scanner scan = new Scanner(System.in);
 
+// establish word to compare
 System.out.print("A 5-letter word was chosen. What is your guess? ");
-String guessWord = scan.next().toUpperCase();
+
+// assumes guessWord is already declared above
+guessWord = scan.next().toUpperCase();
 
 while (guessWord.length() != 5) {
     System.out.println("Your guess didn't have 5 letters!");
@@ -147,13 +154,13 @@ for (int k = 0; k < 6; k++) {
 }
 ```
 
-When you run this, you should get errors. At multiple points in this section of code, you declared variables. As the program tries to loop through this code, it encounters a declaration for the same variable over again - and as we've discovered, that causes an error.
+When you run this, you may get errors. At multiple points in this section of code, you declared variables. As the program tries to loop through this code, it encounters a declaration for the same variable over again - and as we've discovered, that causes an error.
 
 To fix this, you have to move your declarations to precede this loop. Don't remove code that establishes the values, but the declaration (and for some an initial instantiation) needs to precede the loop. Use the following, but this will still take some thought. to find what to remove.
 
 ```
 // declare color code & guess variables
-String[] colorCodes = {RESET + " ", RESET + " ", RESET + " ", RESET + " ", RESET + " "};
+String[] colorCode = {RESET + " ", RESET + " ", RESET + " ", RESET + " ", RESET + " "};
 String guessWord = new String();
 char[] guessArray = new char[5];
 String printWord = new String();
@@ -172,7 +179,7 @@ if (chosenWord.equals(guessWord)) {
 }
 ```
 
-This will throw the program out of the loop if the user guessed correctly. But that doesn't quite end the way we want. The user should get a congratulatory message if they guessed correctly or be shown the correct answer if they didn't. Add the following after the loop.
+This will throw the program out of the loop if the user guessed correctly. But that doesn't quite end the way we want. The user should get a congratulatory message if they guessed correctly or be shown the correct answer if they didn't. Add the following *after* the loop.
 
 ```
 if (chosenWord.equals(guessWord)) {
@@ -181,6 +188,8 @@ if (chosenWord.equals(guessWord)) {
     System.out.println("Correct answer was " + chosenWord);
 }
 ```
+
+Alternately, you may want to have "Good job" printed before the break statement and simply put a print statement after the loop that prints the correct answer in case the user didn't get it in 6 guesses.
 
 After you get this to work, figure out a way to replace `chosenWord` with a string that has spaces between the letters. Use some color other than the default.
 
