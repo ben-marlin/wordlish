@@ -207,6 +207,10 @@ After you get this to work, figure out a way to replace `chosenWord` with a stri
 
 Now return to the line where `chosenWord` was defined. Instantiate a randomizer and use it to randomly choose from the members of `words` like you did in Word Guess.
 
+## Adding instructions
+
+Return to the start of the program. Add a print statement that explains how the game play proceeds.
+
 ## Wrapping Up
 
 As usual, test your program. Make sure you have comments that tell you what each piece does. We will return to this program later and you need to know what each piece did.
