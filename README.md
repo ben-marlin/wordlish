@@ -1,0 +1,1 @@
+Project for students to learn use of arrays, nested for loops. Creates a version of Wordle drawing words from a hard-coded array of 100 five-letter words. Changes colors of letters to indicate correct guesses, as per rules of the original game.
